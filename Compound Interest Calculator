@@ -1,0 +1,19 @@
+principle = 0
+rate = 0
+time = 0
+#Assign the value to the variable to make the loops run at least one time. Then, we can re-enter the value
+
+while principle <= 0:
+    print("Principle can't be less than or equal to zero")
+    principle = float(input("Please enter your principle amount: "))
+
+while rate <= 0:
+    print("Rate can't be less than or equal to zero")
+    rate = float(input("Please enter your interest rate: "))
+
+while time <= 0:
+    print("Time can't be less than or equal to zero")
+    time = float(input("Please enter your time in years: "))
+
+total = principle * pow((1 + rate / 100), time)
+print(f"Total balance is {total:.2f}")
