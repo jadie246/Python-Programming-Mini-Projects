@@ -1,0 +1,23 @@
+#1
+import time
+second= int (input("Please enter your times in second: "))
+
+for i in range (second, 0, -1):
+    print (f"Time left: {i} seconds")
+    time.sleep(1)
+
+print ("Time's up!")
+
+
+#2
+import time
+second= int (input("Please enter your times in second: "))
+
+for i in range (second, 0, -1):
+    second=i % 60
+    minute= int (i/60) % 60
+    hour= int (i/3600)
+    print (f"Time left: {hour:02}:{minute:02}:{second:02}")
+    time.sleep(1)
+
+print ("Time's up!")
