@@ -1,0 +1,114 @@
+#1
+questions= ("How many elements are there in the periodic table?",
+           "Which animal lays the largest eggs?",
+           "What is the most abundant gas in Earth's atmosphere?",
+           "How many bones are there in human body?",
+           "Which planet in the solar system is the hottest?")
+    
+options=(("A.116", "B.117", "C.118", "D.119"),
+        ("A.Whale", "B.Crocodile", "C.Elephant", "D.Ostrich"),
+        ("A.Nitrogen", "B.Oxygen", "C.Carbon dioxide", "D.Hydrogen"),
+        ("A.206", "B.207", "C.208", "D.209"),
+        ("A.Mercury", "B.Venus", "C.Earth", "D.Mars"))
+        
+answers= ("C", "D", "A", "A", "B")
+guesses=[]
+score=0
+question_num=0
+
+for question in questions:
+    print (question)
+    for option in options[question_num]:
+        print (option)
+        
+    guess= input ("PLease enter A,B,C,D: ").upper()
+    guesses.append(guess)
+    if guess== answers [question_num]:
+        score+=1
+        print ("CORRECT!")
+    else:
+        print ("INCORRECT!")
+        print (f"{answers[question_num]} is the correct answer!")
+    question_num+=1
+    
+print ("------------------------")
+print ("         RESULT         ")
+print ("------------------------")
+
+print ("Answers: ", end= "")
+for answer in answers:
+    print (answer, end= " ")
+print ()
+
+print ("Guesses: ", end= "")
+for guess in guesses:
+    print (guess, end= " ")
+print ()
+
+score= int (score/ len(questions)*100)
+print (f"Your total score is {score}")
+
+
+
+
+
+
+#2
+quiz = {
+    "How many elements are there in the periodic table?": {
+        "options": ["A.116", "B.117", "C.118", "D.119"],
+        "answer": "C"
+    },
+    "Which animal lays the largest eggs?": {
+        "options": ["A.Whale", "B.Crocodile", "C.Elephant", "D.Ostrich"],
+        "answer": "D"
+    },
+    "What is the most abundant gas in Earth's atmosphere?": {
+        "options": ["A.Nitrogen", "B.Oxygen", "C.Carbon dioxide", "D.Hydrogen"],
+        "answer": "A"
+    },
+    "How many bones are there in human body?": {
+        "options": ["A.206", "B.207", "C.208", "D.209"],
+        "answer": "A"
+    },
+    "Which planet in the solar system is the hottest?": {
+        "options": ["A.Mercury", "B.Venus", "C.Earth", "D.Mars"],
+        "answer": "B"
+    }
+}
+
+guesses = []
+score = 0
+
+for question, data in quiz.items():
+    print(question)
+    for option in data["options"]:
+        print(option)
+
+    guess = input("Please enter A, B, C, or D: ").upper()
+    guesses.append(guess)
+
+    if guess == data["answer"]:
+        print("CORRECT!")
+        score += 1
+    else:
+        print("INCORRECT!")
+        print(f"The correct answer is {data['answer']}")
+    print()
+
+print("------------------------")
+print("         RESULT         ")
+print("------------------------")
+
+print("Answers: ", end="")
+for q in quiz:
+    print(quiz[q]["answer"], end=" ")
+print()
+
+print("Guesses: ", end="")
+for g in guesses:
+    print(g, end=" ")
+print()
+
+score_percent = int(score / len(quiz) * 100)
+print(f"Your total score is {score_percent}%")
