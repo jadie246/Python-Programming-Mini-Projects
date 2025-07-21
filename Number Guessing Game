@@ -1,0 +1,49 @@
+import random
+
+lowest_num=1 
+highest_num=100
+answer= random.randint(lowest_num, highest_num)
+guesses=0
+
+print ("Python Number Guessing Name")
+print (f"Select a number between {lowest_num} and {highest_num}")
+
+while True:
+    difficulty = input("Choose difficulty (easy/hard): ").lower()
+    if difficulty == "easy":
+        max_attempts = 10
+        print(f"You have {max_attempts} chances.")
+        break
+    elif difficulty == "hard":
+        max_attempts = 5
+        print(f"You have {max_attempts} chances.")
+        break
+    else:
+        print("Invalid choice. Please choose either 'easy' or 'hard'.")
+
+while True:
+    guess= input ("Enter your guess: ")
+    
+    if guess.isdigit():
+        guess= int (guess)
+        guesses+=1 
+        
+        if guess< lowest_num or guess> highest_num:
+            print ("That number is out of the range")
+            print (f"Please select a number between {lowest_num} and {highest_num}")
+            
+        elif guess< answer:
+            print ("Too low!! Try again")
+        elif guess> answer:
+            print ("Too high!! Try again")
+        else:
+            print (f"Correct!! The answer is {answer}")
+            print (f"Number of guesses: {guesses}")
+            break
+        
+        if guesses >= max_attempts:
+           print("Out of guesses! Game over.")
+           print(f"The correct answer was {answer}")
+           break
+    else:
+        print ("Please enter a number, not a letter")
