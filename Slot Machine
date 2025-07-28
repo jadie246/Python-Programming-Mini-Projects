@@ -1,0 +1,56 @@
+import random
+
+symbols = ["🍒", "🍋", "🔔", "⭐", "🍉", "7️⃣"]
+
+def spin():
+    results = []
+    for i in range (3):
+        results.append(random.choice(symbols))
+    return results
+
+def calculate_winnings(slots, bet):
+    if slots[0] == slots[1] == slots[2]:
+        print("Jackpot! All symbols match!")
+        return bet * 10
+    elif slots[0] == slots[1] or slots[1] == slots[2] or slots[0] == slots[2]:
+        print("Nice! Two symbols match!")
+        return bet * 2
+    else:
+        print("No match. Try again!")
+        return 0
+
+def main():
+    balance = 100
+
+    print("🎰 Welcome to the Python Slot Machine!")
+    print("You start with $100.\n")
+
+    while balance > 0:
+        print(f"Current balance: ${balance}")
+        try:
+            bet = int(input("Enter your bet (or 0 to quit): "))
+        except ValueError:
+            print("Invalid input! Please enter a number.")
+            continue
+
+        if bet == 0:
+            break
+        if bet > balance:
+            print("You don't have enough money!")
+            continue
+        if bet < 1:
+            print("Minimum bet is $1.")
+            continue
+
+        slots = spin()
+        print("Spinning...")
+        print(" | ".join(slots))
+
+        winnings = calculate_winnings(slots, bet)
+        balance += winnings - bet
+        print(f"You won: ${winnings}\n")
+
+    print(f"\nGame over! You ended with ${balance}. Thanks for playing!")
+
+if __name__ == "__main__":
+    main()
