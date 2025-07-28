@@ -1,0 +1,39 @@
+import string
+import random
+
+chars= " "+ string.punctuation+ string.digits+ string.ascii_letters
+
+#Convert chars (usually a string or an iterable) into a list in Python.
+chars= list (chars)
+
+#Create an independent copy of the chars list and assigning it to keys.
+key= chars.copy()
+
+random.shuffle (key)
+
+print (f"chars: {chars}")
+print (f"key: {key}")
+
+#Encrypt
+plain_text= input ("Enter a message to encrypt: ")
+cipher_text=""
+
+for letter in plain_text:
+    index= chars.index (letter)  #Find the position (index) of the character letter in the list chars, and assign that position to the variable index.
+    cipher_text+= key [index] #Append the encrypted character (from the key list at the corresponding index) to the variable cipher_text.
+
+print (f"Original message: {plain_text}")
+print (f"Encrypted message: {cipher_text}")
+
+
+
+#Decrypt
+cipher_text= input ("Enter a message to decrypt: ")
+plain_text=""
+
+for letter in cipher_text:
+    index= key.index (letter)  #Find the position (index) of the character letter in the list chars, and assign that position to the variable index.
+    plain_text+= chars [index] #Append the encrypted character (from the key list at the corresponding index) to the variable cipher_text.
+
+print (f"Original message: {plain_text}")
+print (f"Encrypted message: {cipher_text}")
