@@ -1,0 +1,71 @@
+import sys
+import requests
+from PyQt5.QtWidgets import (
+    QApplication, QWidget, QPushButton, QVBoxLayout, QLabel, QLineEdit
+)
+from PyQt5.QtCore import Qt
+
+class CurrencyConverterApp(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        self.country1_label = QLabel("Enter base currency code (e.g. USD):", self)
+        self.country1_input = QLineEdit(self)
+        self.country2_label = QLabel("Enter target currency code (e.g. EUR):", self)
+        self.country2_input = QLineEdit(self)
+        self.result_label = QLabel("", self)
+
+        self.convert_button = QPushButton("Convert 1 unit", self)
+        self.initUI()
+
+    def initUI(self):
+        self.setWindowTitle("Currency Converter App")
+
+        vbox = QVBoxLayout()
+        vbox.addWidget(self.country1_label)
+        vbox.addWidget(self.country1_input)
+        vbox.addWidget(self.country2_label)
+        vbox.addWidget(self.country2_input)
+        vbox.addWidget(self.convert_button)
+        vbox.addWidget(self.result_label)
+
+        self.setLayout(vbox)
+
+        self.country1_label.setAlignment(Qt.AlignCenter)
+        self.country2_label.setAlignment(Qt.AlignCenter)
+        self.result_label.setAlignment(Qt.AlignCenter)
+
+        self.convert_button.clicked.connect(self.converting)
+
+    def converting(self):
+        base = self.country1_input.text().upper()
+        target = self.country2_input.text().upper()
+        api_key = "911d9d5c6a9e3aa9b83362f0"
+        url = f"https://v6.exchangerate-api.com/v6/{api_key}/latest/{base}"
+
+        try:
+            response = requests.get(url)
+            response.raise_for_status()
+            data = response.json()
+
+            if data["result"] == "success":
+                rate = data["conversion_rates"].get(target)
+                if rate:
+                    self.result_label.setText(f"1 {base} = {rate} {target}")
+                    self.result_label.setStyleSheet("color: green; font-size: 20px;")
+                else:
+                    self.display_error(f"Currency '{target}' not found.")
+            else:
+                self.display_error("Invalid base currency or API error.")
+        except Exception as e:
+            self.display_error(str(e))
+
+    def display_error(self, message):
+        self.result_label.setText(message)
+        self.result_label.setStyleSheet("color: red; font-size: 16px;")
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = CurrencyConverterApp()
+    window.show()
+    sys.exit(app.exec_())
